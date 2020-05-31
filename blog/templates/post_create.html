@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h2 class="text-center p-5" style="border: 1px solid black; margin:2em 10em 2em 10em">{{ title }} an article: </h2>
+    <div class="col-6 offset-3 p-4">
+        <!-- added for multiple submmission of data type: ckeditor display -->
+        {{form.media}} 
+        <form action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token%}
+            {{form | crispy}}
+            <button class="btn btn-success btn-block btn-lg" type="submit" >Create Post</button>
+        </form>
+    </div>
+    
+
+{% endblock content %}

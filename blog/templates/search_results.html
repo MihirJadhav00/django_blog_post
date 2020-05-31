@@ -1,0 +1,47 @@
+{%extends 'base.html' %}  
+
+{% load static%}
+
+{% block content %}
+    <h2 class="text-center p-5" style="border: 1px solid black; margin:2em 10em 2em 10em">Your Search Results:</h2>
+<section class="featured-posts no-padding-top">
+    <div class="container">
+      <!-- Post-->
+      {% for post in queryset %}
+      <div class="row d-flex align-items-stretch">
+        {% if not forloop.first and not forloop.last %}
+        <div class="image-responsive col-lg-5"><img src="{{ post.thumbnail.url }}" class="img-fluid" alt="..."></div>
+        {% endif%}
+        <div class="text col-lg-7">
+          <div class="text-inner d-flex align-items-center">
+            <div class="content">
+              <header class="post-header">
+                <div class="category">
+                  {% for cat in post.categories.all %}
+                  <a href="#">{{ cat }}</a>
+                  {% endfor %}
+                </div><a href="{{post.get_absolute_url}}">
+                  <h2 class="h4"> {{ post.title }}</h2></a>
+              </header>
+              <p>{{ post.overview }}</p>
+              <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                  <div class="avatar"><img src="{{ post.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
+                  <div class="title"><span> {{post.author}} </span></div></a>
+                <div class="date"><i class="icon-clock"></i> {{post.timestamp | timesince }}</div>
+                <div class="comments"><i class="icon-comment"></i>{{ post.comment_count}}</div>
+              </footer>
+            </div>
+          </div>
+        </div>
+        {% if forloop.first or forloop.last %}
+          <div class="image-responsive col-lg-5"><img src="{{ post.thumbnail.url }}" class="img-fluid" alt="..."></div>
+        {% endif%}
+      </div>
+      {% endfor %}
+
+    </div>
+  </section>
+<!-- {% for post in queryset %}
+    <a href="{{post.get_absolute_url}}">{{post.title}}</a> <br/>
+{% endfor %} -->
+{% endblock %}
