@@ -33,7 +33,6 @@ INSTALLED_APPS = [
 
     'posts',
     'marketing',
-    'tinymce',
     'crispy_forms',
     'ckeditor',
     'storages',
